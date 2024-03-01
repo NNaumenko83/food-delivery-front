@@ -1,4 +1,4 @@
-import { ProductCard } from '../ProductCart/ProductCard';
+import { ProductCard } from '../ProductCard/ProductCard';
 import { List } from './ProductsList.styled';
 import PropTypes from 'prop-types';
 

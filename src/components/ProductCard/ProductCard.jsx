@@ -3,35 +3,20 @@ import { Button, Card } from './ProductCard.styled';
 import { addProduct, selectProducts } from '../../redux/productsSlice';
 import { toast } from 'react-toastify';
 import { addShop } from '../../redux/shopSlice';
-import { useLocation } from 'react-router-dom';
+
 import imagePlaceholder from '../../images/placeholder-image.jpeg';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 
 export const ProductCard = ({ name, img, price, id }) => {
     const dispatch = useDispatch();
-
-    const location = useLocation();
+    const shopName = useParams();
+    console.log('shopName:', shopName);
 
     const selectedProducts = useSelector(selectProducts);
 
     const handleButtonClick = () => {
         if (selectedProducts.length === 0) {
-            const modifiedShop = location.pathname.replace('/', '');
-            let shopName = '';
-            switch (modifiedShop) {
-                case 'kfc':
-                    shopName = 'KFC';
-                    break;
-                case 'murakami':
-                    shopName = 'Murakami';
-                    break;
-                case 'mcdonalds':
-                    shopName = 'McDonalds';
-                    break;
-
-                default:
-                    shopName = '';
-            }
             dispatch(addShop(shopName));
         }
 

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-const Error = ({ errorMessage }) => {
+
+export const Error = ({ errorMessage }) => {
     return (
         <h1>
             Ooops!
@@ -7,8 +8,6 @@ const Error = ({ errorMessage }) => {
         </h1>
     );
 };
-
-export default Error;
 
 Error.propTypes = {
     errorMessage: PropTypes.any,

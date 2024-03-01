@@ -9,13 +9,13 @@ export const Header = () => {
                 <h1>Food delivery</h1>
                 <nav style={{ display: 'flex', gap: '10px' }}>
                     <NavLink
-                        to="/"
+                        to="/shops"
                         style={{
                             paddingRight: '10px',
                             borderRight: '1px solid black',
                         }}
                     >
-                        Shop
+                        shops
                     </NavLink>
                     <NavLink to="/cart">Shoping Cart</NavLink>
                 </nav>

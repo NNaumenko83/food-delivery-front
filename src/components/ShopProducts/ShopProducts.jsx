@@ -14,6 +14,7 @@ const ShopProducts = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const { shopName } = useParams();
+    console.log('shopName:', shopName);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -44,7 +45,7 @@ const ShopProducts = () => {
                     visible={true}
                 />
             )}
-            {products.length > 0 && (
+            {!isLoading && products.length > 0 && (
                 <ProductsList products={products} path={shopName} />
             )}
             {errorMessage && <Error />}

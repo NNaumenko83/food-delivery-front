@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-export const SuspenseWrapper = styled.div`
+export const NavBarStyled = styled.nav`
     display: flex;
+    gap: 16px;
+    width: 100%;
     justify-content: center;
-    align-items: center;
-    height: 100%;
 `;

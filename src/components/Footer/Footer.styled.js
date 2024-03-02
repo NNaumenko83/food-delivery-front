@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from '@emotion/styled';
 import { Container } from '../../App.styled';
 
 export const FooterStyled = styled.footer`

@@ -11,7 +11,7 @@ export const ProductsList = ({ products }) => {
                     name={product.name}
                     img={product.imageURL}
                     price={product.price}
-                    id={product._id}
+                    id={product.id}
                 />
             ))}
         </List>

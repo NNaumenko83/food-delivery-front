@@ -61,7 +61,7 @@ export const ProductCard = ({ name, img, price, id }) => {
                 style={{ width: '100%', height: 'auto', borderRadius: '10px' }}
                 src={img}
                 alt={name}
-                width={'300px'}
+                width={'100px'}
                 onError={handleImageError}
             />
 
@@ -77,6 +77,6 @@ export const ProductCard = ({ name, img, price, id }) => {
 ProductCard.propTypes = {
     name: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
 };

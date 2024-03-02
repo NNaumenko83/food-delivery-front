@@ -1,25 +1,33 @@
-import { NavLink } from 'react-router-dom';
-import { Container } from '../Container/Container';
-import { HeaderStyled } from './Header.styled';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
 
-export const Header = () => {
+import Container from '@mui/material/Container';
+
+import NavBar from '../NavBar/NavBar';
+import MedicationIcon from '@mui/icons-material/Medication';
+import { Link } from 'react-router-dom';
+
+export function Header() {
     return (
-        <HeaderStyled>
-            <Container>
-                <h1>Food delivery</h1>
-                <nav style={{ display: 'flex', gap: '10px' }}>
-                    <NavLink
-                        to="/shops"
-                        style={{
-                            paddingRight: '10px',
-                            borderRight: '1px solid black',
+        <AppBar position="static">
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
+                    <MedicationIcon
+                        sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
+                    />
+                    <Link to="/">Pharma Point</Link>
+
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: 'none', md: 'flex' },
                         }}
                     >
-                        shops
-                    </NavLink>
-                    <NavLink to="/cart">Shoping Cart</NavLink>
-                </nav>
+                        <NavBar />
+                    </Box>
+                </Toolbar>
             </Container>
-        </HeaderStyled>
+        </AppBar>
     );
-};
+}

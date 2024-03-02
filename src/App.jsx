@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { lazy } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
+import Shops from './pages/Shops/Shops';
+
 // import { Container } from './App.styled';
 // import { Bars } from 'react-loader-spinner';
 
@@ -11,7 +13,7 @@ import ShopProducts from './components/ShopProducts/ShopProducts';
 const ShoppingCart = lazy(() => import('./pages/ShoppingCart/ShoppingCart'));
 
 const Home = lazy(() => import('./pages/Home/Home'));
-const Shops = lazy(() => import('./pages/Shops/Shops'));
+// const Shops = lazy(() => import('./pages/Shops/Shops'));
 
 const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
 

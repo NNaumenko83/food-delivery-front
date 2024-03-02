@@ -7,9 +7,9 @@ export const ProductsList = ({ products }) => {
         <List>
             {products.map(product => (
                 <ProductCard
-                    key={product._id}
+                    key={product.id}
                     name={product.name}
-                    img={product.image}
+                    img={product.imageURL}
                     price={product.price}
                     id={product._id}
                 />

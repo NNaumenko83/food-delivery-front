@@ -1,27 +1,28 @@
-import { useSelector } from 'react-redux';
-import { Disabled, ShopsContainer } from './ShopList.styled';
-import { selectShop } from '../../redux/shopSlice';
+import { ShopsContainer } from './ShopList.styled';
+
 import { NavLink } from 'react-router-dom';
+import { getShops } from '../../services/ShopAPI';
+
+import { useQuery } from '@tanstack/react-query';
 
 function ShopList() {
-    const { shopName } = useSelector(selectShop);
+    const query = useQuery({
+        queryKey: ['shops'],
+        queryFn: getShops,
+        staleTime: 6000,
+    });
+
     return (
         <ShopsContainer>
             Shops:
-            {shopName === 'mcdonalds' || !shopName ? (
-                <NavLink to="/shops/mcdonalds">McDonalds</NavLink>
+            {query?.data ? (
+                query.data.map(shop => (
+                    <NavLink key={shop.id} to={`/shops/${shop.id}`}>
+                        {shop.name}
+                    </NavLink>
+                ))
             ) : (
-                <Disabled>McDonalds</Disabled>
-            )}
-            {shopName === 'kfc' || !shopName ? (
-                <NavLink to="/shops/kfc">KFC</NavLink>
-            ) : (
-                <Disabled>KFC</Disabled>
-            )}
-            {shopName === 'murakami' || !shopName ? (
-                <NavLink to="/shops/murakami">Murakami</NavLink>
-            ) : (
-                <Disabled>Murakami</Disabled>
+                <p>LOADING....</p>
             )}
         </ShopsContainer>
     );

@@ -28,7 +28,7 @@ const persistConfig = {
 export const { addShop, deleteShop } = shopSlice.actions;
 
 export const selectShop = state => {
-    return state.shop.shop;
+    return state.shop;
 };
 
 const shopReducer = shopSlice.reducer;

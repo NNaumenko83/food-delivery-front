@@ -10,8 +10,7 @@ import { useParams } from 'react-router-dom';
 
 export const ProductCard = ({ name, img, price, id }) => {
     const dispatch = useDispatch();
-    const shopName = useParams();
-    console.log('shopName:', shopName);
+    const { shopName } = useParams();
 
     const selectedProducts = useSelector(selectProducts);
 

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {} from './ShopProducts.styled';
 
 import { useParams } from 'react-router-dom';
@@ -8,29 +7,21 @@ import { getProducts } from '../../services/ShopAPI';
 import { ProductsList } from '../ProductsList/ProductsList';
 import { Error } from '../Error/Error';
 
-const ShopProducts = () => {
-    const [products, setProducts] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+import { useQuery } from '@tanstack/react-query';
 
+const ShopProducts = () => {
     const { shopName } = useParams();
     console.log('shopName:', shopName);
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            setIsLoading(true);
-            try {
-                const products = await getProducts(shopName);
-                setProducts(products);
-            } catch (error) {
-                setErrorMessage(error.message);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchProducts();
-    }, [shopName]);
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['products', shopName],
+        queryFn: async () => {
+            const data = await getProducts(shopName);
+            console.log('data:', data);
+            return data;
+        },
+        staleTime: 6000,
+    });
 
     return (
         <>
@@ -45,10 +36,8 @@ const ShopProducts = () => {
                     visible={true}
                 />
             )}
-            {!isLoading && products.length > 0 && (
-                <ProductsList products={products} path={shopName} />
-            )}
-            {errorMessage && <Error />}
+            {!isLoading && data && <ProductsList products={data} />}
+            {error && <Error />}
         </>
     );
 };

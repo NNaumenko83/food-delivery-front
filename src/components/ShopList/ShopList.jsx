@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { getShops } from '../../services/ShopAPI';
 
 import { useQuery } from '@tanstack/react-query';
+import { CustomLink } from '../CustomLink/CustomLink';
 
 function ShopList() {
     const query = useQuery({
@@ -14,12 +15,11 @@ function ShopList() {
 
     return (
         <ShopsContainer>
-            Shops:
             {query?.data ? (
                 query.data.map(shop => (
-                    <NavLink key={shop.id} to={`/shops/${shop.id}`}>
+                    <CustomLink key={shop.id} to={`/shops/${shop.id}`}>
                         {shop.name}
-                    </NavLink>
+                    </CustomLink>
                 ))
             ) : (
                 <p>LOADING....</p>

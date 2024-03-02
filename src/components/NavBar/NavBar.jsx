@@ -1,13 +1,12 @@
-import { NavLink } from 'react-router-dom';
-import { NavBarStyled } from './NavBar.styled';
+import { NavBarStyled, NavLinkStyled } from './NavBar.styled';
 
 const NavBar = () => {
     return (
         <NavBarStyled>
-            <NavLink to="/shops">SHOPS</NavLink>
-            <NavLink to="/cart">CART</NavLink>
-            <NavLink to="/history">HISTORY</NavLink>
-            <NavLink to="/coupons"> COUPONS</NavLink>
+            <NavLinkStyled to="/shops">SHOPS</NavLinkStyled>
+            <NavLinkStyled to="/cart">CART</NavLinkStyled>
+            <NavLinkStyled to="/history">HISTORY</NavLinkStyled>
+            <NavLinkStyled to="/coupons"> COUPONS</NavLinkStyled>
         </NavBarStyled>
     );
 };

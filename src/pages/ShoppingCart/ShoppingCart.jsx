@@ -1,17 +1,22 @@
 import {
     CartContainer,
     CartProducts,
+    CouponsWrapper,
     FormContainer,
     MapWrapper,
+    PriceWrapper,
+    SubmitWrapper,
+    TestWrapper,
     TextPrice,
 } from './ShoppingCart.styled';
 import { Form } from '../../components/Form/Form';
 import { CartProductsList } from '../../components/CartProductsList/CartProductsList';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProducts, selectTotalValue } from '../../redux/productsSlice';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { deleteShop } from '../../redux/shopSlice';
 import Map from '../../components/Map/Map';
+import Container from '../../components/Container/Container';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 console.log('API_KEY:', API_KEY);
@@ -21,6 +26,15 @@ const ShoppingCart = () => {
     const selectedProducts = useSelector(selectProducts);
     const dispatch = useDispatch();
 
+    const formRef = useRef(null);
+    console.log('formRef:', formRef);
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        console.log('e:', e.target);
+        console.log('aaaaa');
+    };
+
     useEffect(() => {
         if (selectedProducts.length === 0) {
             dispatch(deleteShop());
@@ -28,20 +42,33 @@ const ShoppingCart = () => {
     }, [dispatch, selectedProducts.length]);
 
     return (
-        <>
+        <Container>
             <CartContainer>
+                <MapWrapper>
+                    <Map />
+                </MapWrapper>
                 <FormContainer>
-                    <MapWrapper>
-                        <Map />
-                    </MapWrapper>
-                    <Form />
+                    <Form ref={formRef} onSubmit={handleSubmit} />
                 </FormContainer>
                 <CartProducts>
                     <CartProductsList />
                 </CartProducts>
+                <PriceWrapper>
+                    <TextPrice>Total price: {total} UAH</TextPrice>
+                </PriceWrapper>
+                <CouponsWrapper>
+                    <p>Coupons</p>
+                </CouponsWrapper>
+                <TestWrapper>
+                    <p>Test</p>
+                </TestWrapper>
+                <SubmitWrapper>
+                    <button type="submit" onClick={handleSubmit}>
+                        Send
+                    </button>
+                </SubmitWrapper>
             </CartContainer>
-            <TextPrice>Total price: {total} UAH</TextPrice>
-        </>
+        </Container>
     );
 };
 

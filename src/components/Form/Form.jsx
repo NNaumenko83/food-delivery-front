@@ -10,8 +10,7 @@ import { resetProducts, selectProducts } from '../../redux/productsSlice';
 import { Oval } from 'react-loader-spinner';
 import { deleteShop, selectShop } from '../../redux/shopSlice';
 import { sendOrder } from '../../services/ShopAPI';
-
-import AddressInput from '../AddressInput/AddressInput';
+import { AddressInput } from '../AddressInput/AddressInput';
 
 export const Form = () => {
     const dispatch = useDispatch();
@@ -121,10 +120,11 @@ export const Form = () => {
     return (
         <FormCart onSubmit={handleSubmit}>
             <label>
-                Address:
-                <FormInput type="text" name="address" onChange={handleChange} />
-                {/* {errors.name && <ErrorText>{errors.name}</ErrorText>} */}
+                Address
+                <input />
+                <AddressInput />
             </label>
+
             <label>
                 Name:
                 <FormInput type="text" name="name" onChange={handleChange} />
@@ -145,7 +145,7 @@ export const Form = () => {
                 />
                 {/* {errors.phone && <ErrorText>{errors.phone}</ErrorText>} */}
             </label>
-            <AddressInput />
+
             <SubmitButton
                 type="submit"
                 /*  disabled={selectedProducts.length === 0} */

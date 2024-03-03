@@ -1,27 +1,21 @@
 import { useEffect, useState } from 'react';
 import {
     GoogleMap,
-    LoadScript,
     Marker,
     DirectionsService,
     DirectionsRenderer,
 } from '@react-google-maps/api';
-// import { useOrder } from '../../hooks/contextOrder';
-// import {
-//     /* getShopsById */ getAddressByLocation,
-// } from '../../services/apiBackend';
-import { GOOGLE_MAPS_API_KEY } from '../../constant/googleKeys';
-// import styles from './Map.module.scss';
+
+// import { getShopsById, getAddressByLocation } from '../../services/apiBackend';
+
 import { useGeolocated } from 'react-geolocated';
+import { GOOGLE_MAPS_API_KEY } from '../../constant/googleKeys';
 
 const Map = (/* { setAddress, setLocation } */) => {
-    // const { order } = useOrder();
-
     const [response, setResponse] = useState(null);
+
     const [locationBuyer, setLocationBuyer] = useState();
-    console.log('locationBuyer:', locationBuyer);
     const [locationStore, setLocationStore] = useState();
-    console.log('locationStore:', locationStore);
 
     const { coords, isGeolocationAvailable, isGeolocationEnabled } =
         useGeolocated({
@@ -49,9 +43,8 @@ const Map = (/* { setAddress, setLocation } */) => {
             try {
                 // const addr = await getAddressByLocation(
                 //     String(locationBuyer.lat),
-                //     String(locationBuyer.lng)
+                //     String(locationBuyer.lng),
                 // );
-                // console.log('addr:', addr);
                 // setAddress(addr);
             } catch (Error) {
                 // setAddress('');
@@ -62,18 +55,22 @@ const Map = (/* { setAddress, setLocation } */) => {
     }, [locationBuyer /* setAddress, setLocation */]);
 
     useEffect(() => {
+        const controller = new AbortController();
+
         const load = async () => {
             try {
                 // const { location } = await getShopsById(order.shop, controller);
 
                 // const arrLocation = location.split(',');
 
+                // setLocationStore({
+                //     lat: Number(arrLocation[0]),
+                //     lng: Number(arrLocation[1]),
+                // });
+
                 setLocationStore({
                     lat: 51.46993065494816,
                     lng: 31.501830359078916,
-
-                    // lat: Number(arrLocation[0]),
-                    // lng: Number(arrLocation[1]),
                 });
             } catch (Error) {
                 setLocationStore({
@@ -84,6 +81,10 @@ const Map = (/* { setAddress, setLocation } */) => {
         };
 
         load();
+
+        return () => {
+            controller.abort();
+        };
     }, []);
 
     const directionsCallback = response => {
@@ -94,8 +95,9 @@ const Map = (/* { setAddress, setLocation } */) => {
         }
     };
 
-    // eslint-disable-next-line no-unused-vars
-    const onLoad = marker => {};
+    const onLoad = marker => {
+        console.log('marker: ', marker);
+    };
 
     const onClick = e => {
         if (e.latLng?.lat() && e.latLng?.lng()) {
@@ -107,46 +109,50 @@ const Map = (/* { setAddress, setLocation } */) => {
         }
     };
 
+    useEffect(() => {
+        return () => {
+            setResponse(null);
+        };
+    }, []);
+
     return (
         <div style={{ width: '100%', height: '100%' }}>
-            <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
-                <GoogleMap
-                    mapContainerStyle={{
-                        width: '100%',
-                        height: '100%',
-                    }}
-                    center={locationStore}
-                    zoom={13}
-                    onClick={onClick}
-                >
-                    {locationBuyer && (
-                        <Marker onLoad={onLoad} position={locationBuyer} />
-                    )}
+            <GoogleMap
+                mapContainerStyle={{
+                    width: '100%',
+                    height: '100%',
+                }}
+                center={locationStore}
+                zoom={13}
+                onClick={onClick}
+            >
+                {locationBuyer && (
+                    <Marker onLoad={onLoad} position={locationBuyer} />
+                )}
 
-                    {locationStore && (
-                        <Marker onLoad={onLoad} position={locationStore} />
-                    )}
+                {locationStore && (
+                    <Marker onLoad={onLoad} position={locationStore} />
+                )}
 
-                    {!response && locationStore && locationBuyer && (
-                        <DirectionsService
-                            options={{
-                                destination: locationStore,
-                                origin: locationBuyer,
-                                travelMode: 'WALKING',
-                            }}
-                            callback={directionsCallback}
-                        />
-                    )}
-                    {response && (
-                        <DirectionsRenderer
-                            options={{
-                                directions: response,
-                            }}
-                            routeIndex={0}
-                        />
-                    )}
-                </GoogleMap>
-            </LoadScript>
+                {!response && locationStore && locationBuyer && (
+                    <DirectionsService
+                        options={{
+                            destination: locationStore,
+                            origin: locationBuyer,
+                            travelMode: 'WALKING',
+                        }}
+                        callback={directionsCallback}
+                    />
+                )}
+                {response && (
+                    <DirectionsRenderer
+                        options={{
+                            directions: response,
+                        }}
+                        routeIndex={0}
+                    />
+                )}
+            </GoogleMap>
         </div>
     );
 };

@@ -18,7 +18,18 @@ const Coupons = lazy(() => import('./pages/Coupons/Coupons'));
 
 const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
 
+import { useLoadScript } from '@react-google-maps/api';
+import { GOOGLE_MAPS_API_KEY } from './constant/googleKeys';
+
+const libraries = ['places'];
 function App() {
+    const { isLoaded, loadError } = useLoadScript({
+        googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+        libraries: libraries,
+    });
+
+    if (loadError) return <div>Error loading maps</div>;
+    if (!isLoaded) return <div>Loading maps</div>;
     return (
         <>
             <Routes>

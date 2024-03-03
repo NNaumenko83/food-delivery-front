@@ -1,7 +1,7 @@
-import {} from './ShopProducts.styled';
+import { LoaderWrapper } from './ShopProducts.styled';
 
 import { useParams } from 'react-router-dom';
-import { Bars } from 'react-loader-spinner';
+import { MutatingDots } from 'react-loader-spinner';
 
 import { getProducts } from '../../services/ShopAPI';
 import { ProductsList } from '../ProductsList/ProductsList';
@@ -26,15 +26,17 @@ const ShopProducts = () => {
     return (
         <>
             {isLoading && (
-                <Bars
-                    height="40"
-                    width="40"
-                    color="#280232"
-                    ariaLabel="bars-loading"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                />
+                <LoaderWrapper>
+                    <MutatingDots
+                        height={100}
+                        width={100}
+                        color="#1976d2"
+                        secondaryColor="#1976d2"
+                        radius={12.5}
+                        ariaLabel="mutating-dots-loading"
+                        visible={true}
+                    />
+                </LoaderWrapper>
             )}
             {!isLoading && data && <ProductsList products={data} />}
             {error && <Error />}

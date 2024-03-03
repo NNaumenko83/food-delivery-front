@@ -93,7 +93,7 @@ export const ProductCard = ({ name, img, price, id, currency }) => {
                 <Image
                     src={img}
                     alt={name}
-                    width={'100px'}
+                    width="100px"
                     onError={handleImageError}
                 />
             </ImageWrapper>

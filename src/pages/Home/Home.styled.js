@@ -18,8 +18,8 @@ export const ShopsContainer = styled.div`
 export const StyledLink = styled(Link)`
     display: flex;
     justify-content: center;
-    padding: 5px;
-    width: 150px;
+    padding: 10px 15px;
+    width: auto;
     border: 1px solid #020024;
     opacity: 0.8;
     background-color: #7eb100;
@@ -29,6 +29,9 @@ export const StyledLink = styled(Link)`
     :hover {
         opacity: 1;
         color: #ffffff;
+        -webkit-box-shadow: 0px 0px 20px 0px rgba(52, 128, 209, 1);
+        -moz-box-shadow: 0px 0px 20px 0px rgba(52, 128, 209, 1);
+        box-shadow: 0px 0px 20px 0px rgba(52, 128, 209, 1);
     }
 `;
 

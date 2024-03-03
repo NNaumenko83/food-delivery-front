@@ -6,7 +6,7 @@ const Home = () => {
         <Container>
             <ContentWrapper>
                 <Title>Welcome! Select a pharmacy and place your order.</Title>
-                <StyledLink to="/shops">Go</StyledLink>
+                <StyledLink to="/shops">Explore our pharmacies now!</StyledLink>
             </ContentWrapper>
         </Container>
     );

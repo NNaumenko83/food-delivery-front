@@ -29,3 +29,16 @@ export const ProductsListWrapper = styled.div`
     max-height: 100%;
     overflow: auto;
 `;
+
+export const TitleWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+`;
+
+export const Title = styled.h3`
+    font-size: 30px;
+    font-weight: 600;
+    color: #1a71b6;
+`;

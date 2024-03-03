@@ -9,6 +9,8 @@ import {
     ContentWrapper,
     ProductsListWrapper,
     ShopsListWrapper,
+    Title,
+    TitleWrapper,
 } from './Shops.styled';
 
 function Shops() {
@@ -29,7 +31,11 @@ function Shops() {
                     <ShopList />
                 </ShopsListWrapper>
                 <ProductsListWrapper>
-                    {!shopName && <h1>Chooose a shop</h1>}
+                    {!shopName && (
+                        <TitleWrapper>
+                            <Title>Choose a pharmacy</Title>
+                        </TitleWrapper>
+                    )}
                     <Suspense fallback={<h1>Loading...</h1>}>
                         <Outlet />
                     </Suspense>

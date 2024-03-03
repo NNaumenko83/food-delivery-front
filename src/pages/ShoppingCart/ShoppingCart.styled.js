@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 
 export const CartContainer = styled.div`
-    height: calc(100vh - 150px - 20px);
+    height: calc(100vh - 150px - 50px);
     position: relative;
     gap: 4px;
 
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
 `;
 
@@ -21,7 +21,7 @@ export const CartProducts = styled.div`
     -moz-box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
 
-    grid-area: 1 / 4 / 6 / 7;
+    grid-area: 1 / 5 / 7 / 9;
 `;
 
 export const FormContainer = styled.div`
@@ -34,7 +34,7 @@ export const FormContainer = styled.div`
     -moz-box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
 
-    grid-area: 4 / 1 / 8 / 4;
+    grid-area: 4 / 1 / 9 / 5;
 `;
 
 export const TextPrice = styled.p`
@@ -43,25 +43,25 @@ export const TextPrice = styled.p`
 `;
 
 export const MapWrapper = styled.div`
-    grid-area: 1 / 1 / 4 / 4;
+    grid-area: 1 / 1 / 4 / 5;
     background-color: purple;
 `;
 
 export const PriceWrapper = styled.div`
-    grid-area: 8 / 1 / 9 / 3;
+    grid-area: 8 / 5 / 9 / 7;
     background-color: green;
 `;
 export const SubmitWrapper = styled.div`
-    grid-area: 8 / 5 / 9 / 7;
+    grid-area: 8 / 7 / 9 / 9;
     background-color: blue;
 `;
 
 export const CouponsWrapper = styled.div`
-    grid-area: 6 / 4 / 8 / 7;
+    grid-area: 7 / 5 / 8 / 7;
     background-color: yellow;
 `;
 
 export const TestWrapper = styled.div`
-    grid-area: 8 / 3 / 9 / 7;
+    grid-area: 7 / 7 / 8 / 9;
     background-color: tomato;
 `;

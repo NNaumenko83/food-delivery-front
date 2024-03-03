@@ -5,7 +5,6 @@ import {
     FormContainer,
     MapWrapper,
     PriceWrapper,
-    SubmitWrapper,
     TestWrapper,
     TextPrice,
 } from './ShoppingCart.styled';
@@ -62,11 +61,6 @@ const ShoppingCart = () => {
                 <TestWrapper>
                     <p>Test</p>
                 </TestWrapper>
-                <SubmitWrapper>
-                    <button type="submit" onClick={handleSubmit}>
-                        Send
-                    </button>
-                </SubmitWrapper>
             </CartContainer>
         </Container>
     );

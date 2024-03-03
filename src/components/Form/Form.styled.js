@@ -18,17 +18,16 @@ export const SubmitButton = styled.button`
     cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
 
     position: absolute;
-    right: 30px;
-    position: absolute;
-    right: 30px;
-    bottom: 20px;
+
+    right: 10px;
+    bottom: 10px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
     width: 100px;
-    height: 45px;
+    height: 36px;
 
     border: 1px solid #020024;
     border-radius: 5px;

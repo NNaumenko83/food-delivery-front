@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 
 export const CartContainer = styled.div`
     height: calc(100vh - 150px - 20px);
+    position: relative;
+    gap: 4px;
 
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(8, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
 `;
 
 export const CartProducts = styled.div`
@@ -26,6 +26,7 @@ export const CartProducts = styled.div`
 
 export const FormContainer = styled.div`
     padding: 20px;
+    overflow: auto;
 
     border: 1px solid #272729;
     border-radius: 5px;
@@ -61,6 +62,6 @@ export const CouponsWrapper = styled.div`
 `;
 
 export const TestWrapper = styled.div`
-    grid-area: 8 / 3 / 9 / 5;
+    grid-area: 8 / 3 / 9 / 7;
     background-color: tomato;
 `;

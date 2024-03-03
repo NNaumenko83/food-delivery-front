@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const ProductsContainer = styled.div`
     display: flex;
     width: 100%;
-    height: calc(100vh - 120px);
+    height: 100%;
     gap: 10px;
     padding: 10px;
     border: 1px solid #272729;

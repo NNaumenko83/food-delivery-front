@@ -10,7 +10,7 @@ import { LinkStyled } from './Header.styled';
 
 export function Header() {
     return (
-        <AppBar position="static">
+        <AppBar position="fixed">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <LinkStyled to="/">

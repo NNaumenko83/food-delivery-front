@@ -1,6 +1,5 @@
 import { ShopsContainer } from './ShopList.styled';
 
-import { NavLink } from 'react-router-dom';
 import { getShops } from '../../services/ShopAPI';
 
 import { useQuery } from '@tanstack/react-query';

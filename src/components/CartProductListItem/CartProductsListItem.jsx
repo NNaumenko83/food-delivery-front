@@ -63,7 +63,7 @@ export const CartProductsListItem = ({ image, price, id, name, qty }) => {
 
 CartProductsListItem.propTypes = {
     image: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     qty: PropTypes.number.isRequired,

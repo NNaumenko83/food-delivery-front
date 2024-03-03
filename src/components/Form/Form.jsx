@@ -11,7 +11,7 @@ import { Oval } from 'react-loader-spinner';
 import { deleteShop, selectShop } from '../../redux/shopSlice';
 import { sendOrder } from '../../services/ShopAPI';
 
-import PropTypes from 'prop-types';
+import AddressInput from '../AddressInput/AddressInput';
 
 export const Form = () => {
     const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export const Form = () => {
     const shop = useSelector(selectShop);
     const [isLoading, setIsLoading] = useState(false);
 
-    const initialState = { name: '', email: '', phone: '', adress: '' };
+    const initialState = { name: '', email: '', phone: '', address: '' };
 
     const [formData, setFormData] = useState(initialState);
 
@@ -145,7 +145,7 @@ export const Form = () => {
                 />
                 {/* {errors.phone && <ErrorText>{errors.phone}</ErrorText>} */}
             </label>
-
+            <AddressInput />
             <SubmitButton
                 type="submit"
                 /*  disabled={selectedProducts.length === 0} */
@@ -169,8 +169,4 @@ export const Form = () => {
             </SubmitButton>
         </FormCart>
     );
-};
-
-Form.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
 };

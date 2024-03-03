@@ -6,8 +6,7 @@ export const FormCart = styled.form`
     gap: 20px;
     flex-wrap: wrap;
     overflow: auto;
-
-    border: 1px solid red;
+    height: 100%;
 `;
 
 export const FormInput = styled.input`

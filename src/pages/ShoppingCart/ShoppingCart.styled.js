@@ -45,6 +45,12 @@ export const TextPrice = styled.p`
 export const MapWrapper = styled.div`
     grid-area: 1 / 1 / 4 / 5;
     background-color: purple;
+    border: 1px solid #272729;
+    border-radius: 5px;
+    overflow: hidden;
+    -webkit-box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
 `;
 
 export const PriceWrapper = styled.div`

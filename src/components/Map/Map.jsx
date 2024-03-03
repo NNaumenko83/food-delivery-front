@@ -10,7 +10,7 @@ import {
 // import {
 //     /* getShopsById */ getAddressByLocation,
 // } from '../../services/apiBackend';
-import { MAP_KEY } from '../../constant/googleKeys';
+import { GOOGLE_MAPS_API_KEY } from '../../constant/googleKeys';
 // import styles from './Map.module.scss';
 import { useGeolocated } from 'react-geolocated';
 
@@ -94,6 +94,7 @@ const Map = (/* { setAddress, setLocation } */) => {
         }
     };
 
+    // eslint-disable-next-line no-unused-vars
     const onLoad = marker => {};
 
     const onClick = e => {
@@ -108,7 +109,7 @@ const Map = (/* { setAddress, setLocation } */) => {
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
-            <LoadScript googleMapsApiKey={MAP_KEY}>
+            <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
                 <GoogleMap
                     mapContainerStyle={{
                         width: '100%',

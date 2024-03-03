@@ -6,7 +6,7 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 
 export const AddressInput = () => {
     const {
-        ready,
+        // ready,
         value,
         suggestions: { status, data },
         setValue,

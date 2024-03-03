@@ -9,7 +9,6 @@ import {
 // import { getShopsById, getAddressByLocation } from '../../services/apiBackend';
 
 import { useGeolocated } from 'react-geolocated';
-import { GOOGLE_MAPS_API_KEY } from '../../constant/googleKeys';
 
 const Map = (/* { setAddress, setLocation } */) => {
     const [response, setResponse] = useState(null);

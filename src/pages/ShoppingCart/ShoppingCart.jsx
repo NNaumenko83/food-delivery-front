@@ -15,9 +15,10 @@ import { selectTotalValue } from '../../redux/productsSlice';
 
 import Map from '../../components/Map/Map';
 import Container from '../../components/Container/Container';
+import { AddressProvider } from './context/AddressContext';
 
-const API_KEY = import.meta.env.VITE_API_KEY;
-console.log('API_KEY:', API_KEY);
+// const API_KEY = import.meta.env.VITE_API_KEY;
+// console.log('API_KEY:', API_KEY);
 
 const ShoppingCart = () => {
     const total = useSelector(selectTotalValue);
@@ -31,6 +32,7 @@ const ShoppingCart = () => {
                 <FormContainer>
                     <Form />
                 </FormContainer>
+
                 <CartProducts>
                     <CartProductsList />
                 </CartProducts>

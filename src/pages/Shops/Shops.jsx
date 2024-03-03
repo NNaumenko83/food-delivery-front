@@ -4,6 +4,12 @@ import ShopList from '../../components/ShopList/ShopList';
 import { Suspense, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectShop } from '../../redux/shopSlice';
+import Container from '../../components/Container/Container';
+import {
+    ContentWrapper,
+    ProductsListWrapper,
+    ShopsListWrapper,
+} from './Shops.styled';
 
 function Shops() {
     const navigate = useNavigate();
@@ -17,13 +23,19 @@ function Shops() {
     }, []);
 
     return (
-        <div style={{ display: 'flex', gap: '20px' }}>
-            <ShopList />
-            {!shopName && <h1>Chooose a shop</h1>}
-            <Suspense fallback={<h1>Loading...</h1>}>
-                <Outlet />
-            </Suspense>
-        </div>
+        <Container>
+            <ContentWrapper>
+                <ShopsListWrapper>
+                    <ShopList />
+                </ShopsListWrapper>
+                <ProductsListWrapper>
+                    {!shopName && <h1>Chooose a shop</h1>}
+                    <Suspense fallback={<h1>Loading...</h1>}>
+                        <Outlet />
+                    </Suspense>
+                </ProductsListWrapper>
+            </ContentWrapper>
+        </Container>
     );
 }
 

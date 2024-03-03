@@ -1,10 +1,20 @@
 import PropTypes from 'prop-types';
-import { ContainerStyled } from './Container.styled';
 
-export const Container = ({ children }) => {
-    return <ContainerStyled>{children}</ContainerStyled>;
-};
+import * as React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
 
+import MUIContainer from '@mui/material/Container';
+
+export default function Container({ children }) {
+    return (
+        <React.Fragment>
+            <CssBaseline />
+            <MUIContainer maxWidth="xl" fixed>
+                {children}
+            </MUIContainer>
+        </React.Fragment>
+    );
+}
 Container.propTypes = {
     children: PropTypes.node.isRequired,
 };

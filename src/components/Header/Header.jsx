@@ -2,16 +2,15 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 
-import Container from '@mui/material/Container';
-
 import NavBar from '../NavBar/NavBar';
 import MedicationIcon from '@mui/icons-material/Medication';
 import { LinkStyled } from './Header.styled';
+import Container from '../Container/Container';
 
 export function Header() {
     return (
         <AppBar position="fixed">
-            <Container maxWidth="xl">
+            <Container>
                 <Toolbar disableGutters>
                     <LinkStyled to="/">
                         <MedicationIcon
@@ -23,7 +22,6 @@ export function Header() {
                     <Box
                         sx={{
                             flexGrow: 1,
-                            display: { xs: 'none', md: 'flex' },
                         }}
                     >
                         <NavBar />

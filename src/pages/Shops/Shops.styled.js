@@ -12,3 +12,20 @@ export const ProductsContainer = styled.div`
     -moz-box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.75);
 `;
+
+export const ContentWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 24px;
+    height: calc(100vh - 210px);
+`;
+export const ShopsListWrapper = styled.div`
+    grid-area: 1 / 1 / 2 / 2;
+    border-right: 1px solid #bfbfbf;
+`;
+export const ProductsListWrapper = styled.div`
+    grid-area: 1 / 2 / 2 / 3;
+    max-height: 100%;
+    overflow: auto;
+`;

@@ -36,7 +36,7 @@ export const Footer = () => {
                     </Link>
                 </LinkWrapper>
 
-                <FooterText> 2023 </FooterText>
+                <FooterText> 2024 </FooterText>
             </FooterContainer>
         </FooterStyled>
     );

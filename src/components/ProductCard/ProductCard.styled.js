@@ -60,7 +60,8 @@ export const Image = styled.img`
 
 export const InfoWrapper = styled.div`
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    /* justify-content: space-between; */
     padding: 12px;
     font-size: 16px;
     font-weight: 600;

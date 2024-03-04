@@ -24,9 +24,10 @@ setDefaults({
 const Map = () => {
     const [response, setResponse] = useState(null);
     const shop = useSelector(selectShop);
+    console.log('shop:', shop);
     const [directionsKey, setDirectionsKey] = useState(0);
     const [locationStore, setLocationStore] = useState();
-    console.log('locationStore:', locationStore);
+
     const { locationBuyer, setLocationBuyer } = useContext(AddressContext);
 
     const { data: { address: addressShop } = {} } = useQuery({
@@ -111,6 +112,26 @@ const Map = () => {
             console.log('Response cleared:', response);
         }
     };
+
+    if (!shop.shop) {
+        return (
+            <div style={{ width: '100%', height: '100%' }}>
+                <GoogleMap
+                    mapContainerStyle={{
+                        width: '100%',
+                        height: '100%',
+                    }}
+                    center={locationBuyer}
+                    zoom={13}
+                    onClick={onClick}
+                >
+                    {locationBuyer && (
+                        <Marker onLoad={onLoad} position={locationBuyer} />
+                    )}
+                </GoogleMap>
+            </div>
+        );
+    }
 
     return (
         <div style={{ width: '100%', height: '100%' }}>

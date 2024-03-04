@@ -6,14 +6,17 @@ import {
     DirectionsRenderer,
 } from '@react-google-maps/api';
 
-// import { getShopsById, getAddressByLocation } from '../../services/apiBackend';
-
 import { useGeolocated } from 'react-geolocated';
+import { useSelector } from 'react-redux';
+import { selectShop } from '../../redux/shopSlice';
 
-const Map = (/* { setAddress, setLocation } */) => {
+const Map = () => {
     const [response, setResponse] = useState(null);
+    console.log('response:', response);
+    const shop = useSelector(selectShop);
 
     const [locationBuyer, setLocationBuyer] = useState();
+    console.log('locationBuyer:', locationBuyer);
     const [locationStore, setLocationStore] = useState();
 
     const { coords, isGeolocationAvailable, isGeolocationEnabled } =
@@ -25,6 +28,7 @@ const Map = (/* { setAddress, setLocation } */) => {
         });
 
     useEffect(() => {
+        console.log('useEffect:AAAAAAAAAAAA');
         if (isGeolocationAvailable && isGeolocationEnabled && coords) {
             setLocationBuyer({
                 lat: coords.latitude,
@@ -34,43 +38,22 @@ const Map = (/* { setAddress, setLocation } */) => {
     }, [isGeolocationAvailable, isGeolocationEnabled, coords]);
 
     useEffect(() => {
-        if (!locationBuyer) return;
-
-        // setLocation(`${locationBuyer.lat}, ${locationBuyer.lng}`);
-
-        const load = async () => {
-            try {
-                // const addr = await getAddressByLocation(
-                //     String(locationBuyer.lat),
-                //     String(locationBuyer.lng),
-                // );
-                // setAddress(addr);
-            } catch (Error) {
-                // setAddress('');
-            }
-        };
-
-        load();
-    }, [locationBuyer /* setAddress, setLocation */]);
-
-    useEffect(() => {
         const controller = new AbortController();
 
         const load = async () => {
             try {
                 // const { location } = await getShopsById(order.shop, controller);
 
-                // const arrLocation = location.split(',');
+                // const arrLocation = location.split(",");
+                setLocationStore({
+                    lat: 50.46993065494816,
+                    lng: 30.501830359078916,
+                });
 
                 // setLocationStore({
-                //     lat: Number(arrLocation[0]),
-                //     lng: Number(arrLocation[1]),
+                //   lat: Number(arrLocation[0]),
+                //   lng: Number(arrLocation[1]),
                 // });
-
-                setLocationStore({
-                    lat: 51.46993065494816,
-                    lng: 31.501830359078916,
-                });
             } catch (Error) {
                 setLocationStore({
                     lat: 50.46993065494816,
@@ -84,7 +67,7 @@ const Map = (/* { setAddress, setLocation } */) => {
         return () => {
             controller.abort();
         };
-    }, []);
+    }, [shop]);
 
     const directionsCallback = response => {
         if (response !== null) {
@@ -94,25 +77,20 @@ const Map = (/* { setAddress, setLocation } */) => {
         }
     };
 
-    const onLoad = marker => {
-        console.log('marker: ', marker);
-    };
+    // eslint-disable-next-line no-unused-vars
+    const onLoad = marker => {};
 
     const onClick = e => {
+        console.log('Click detected!');
         if (e.latLng?.lat() && e.latLng?.lng()) {
             setLocationBuyer({
                 lat: e.latLng?.lat(),
                 lng: e.latLng?.lng(),
             });
             setResponse(null);
+            console.log(response);
         }
     };
-
-    useEffect(() => {
-        return () => {
-            setResponse(null);
-        };
-    }, []);
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
@@ -138,6 +116,7 @@ const Map = (/* { setAddress, setLocation } */) => {
                         options={{
                             destination: locationStore,
                             origin: locationBuyer,
+
                             travelMode: 'WALKING',
                         }}
                         callback={directionsCallback}

@@ -6,8 +6,21 @@ import { Header } from '../Header/Header';
 import { Footer } from '../Footer/Footer';
 import { SuspenseWrapper } from './SharedLayout.styled';
 import Main from '../Main/Main';
+import { useLoadScript } from '@react-google-maps/api';
+import { GOOGLE_MAPS_API_KEY } from '../../constant/googleKeys';
+
+const libraries = ['places'];
 
 export const SharedLayout = () => {
+    const { /* isLoaded,  */ loadError } = useLoadScript({
+        googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+        libraries: libraries,
+    });
+
+    if (loadError) {
+        console.log('loadError:', loadError);
+    }
+
     return (
         <>
             <Header />

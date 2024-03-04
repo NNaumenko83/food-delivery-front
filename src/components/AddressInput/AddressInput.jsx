@@ -3,8 +3,13 @@ import usePlacesAutocomplete, {
     getLatLng,
 } from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
+import { useContext, useEffect } from 'react';
+import { AddressContext } from '../../pages/ShoppingCart/ShoppingCart';
 
 export const AddressInput = () => {
+    const { address, setAddress, locationBuyer, setLocationBuyer } =
+        useContext(AddressContext);
+
     const {
         // ready,
         value,
@@ -12,6 +17,12 @@ export const AddressInput = () => {
         setValue,
         clearSuggestions,
     } = usePlacesAutocomplete();
+
+    useEffect(() => {
+        if (address) {
+            setValue(address);
+        }
+    }, [address]);
 
     const ref = useOnclickOutside(() => {
         // When the user clicks outside of the component, we can dismiss
@@ -36,6 +47,7 @@ export const AddressInput = () => {
             getGeocode({ address: description }).then(results => {
                 const { lat, lng } = getLatLng(results[0]);
                 console.log('📍 Coordinates: ', { lat, lng });
+                setLocationBuyer({ lat, lng });
             });
         };
 

@@ -121,7 +121,6 @@ export const Form = () => {
         <FormCart onSubmit={handleSubmit}>
             <label>
                 Address
-                <input />
                 <AddressInput />
             </label>
 

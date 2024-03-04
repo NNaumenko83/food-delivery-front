@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
     /* ErrorText,  */ FormCart,
     FormInput,
@@ -11,12 +11,15 @@ import { Oval } from 'react-loader-spinner';
 import { deleteShop, selectShop } from '../../redux/shopSlice';
 import { sendOrder } from '../../services/ShopAPI';
 import { AddressInput } from '../AddressInput/AddressInput';
+import { AddressContext } from '../../pages/ShoppingCart/ShoppingCart';
 
 export const Form = () => {
     const dispatch = useDispatch();
     const selectedProducts = useSelector(selectProducts);
     const shop = useSelector(selectShop);
     const [isLoading, setIsLoading] = useState(false);
+    const { locationBuyer, setLocationBuyer } = useContext(AddressContext);
+    console.log('locationBuyer:', locationBuyer);
 
     const initialState = { name: '', email: '', phone: '', address: '' };
 

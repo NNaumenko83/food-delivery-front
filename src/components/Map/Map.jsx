@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
     GoogleMap,
     Marker,
@@ -14,6 +14,7 @@ import { selectShop } from '../../redux/shopSlice';
 import { useQuery } from '@tanstack/react-query';
 import { getShopAddress } from '../../services/ShopAPI';
 import { GOOGLE_MAPS_API_KEY } from '../../constant/googleKeys';
+import { AddressContext } from '../../pages/ShoppingCart/ShoppingCart';
 
 setDefaults({
     key: GOOGLE_MAPS_API_KEY,
@@ -24,9 +25,9 @@ const Map = () => {
     const [response, setResponse] = useState(null);
     const shop = useSelector(selectShop);
     const [directionsKey, setDirectionsKey] = useState(0);
-    const [locationBuyer, setLocationBuyer] = useState();
     const [locationStore, setLocationStore] = useState();
-    console.log('locationStore:', locationStore);
+    const { locationBuyer, setLocationBuyer } = useContext(AddressContext);
+    console.log('locationBuyer:', locationBuyer);
 
     const { data: { address: addressShop } = {} } = useQuery({
         queryKey: ['shop'],
@@ -71,38 +72,6 @@ const Map = () => {
             });
         }
     }, [isGeolocationAvailable, isGeolocationEnabled, coords]);
-
-    // useEffect(() => {
-    //     const controller = new AbortController();
-
-    //     const load = async () => {
-    //         try {
-    //             // const { location } = await getShopsById(order.shop, controller);
-
-    //             // const arrLocation = location.split(",");
-    //             setLocationStore({
-    //                 lat: 50.46993065494816,
-    //                 lng: 30.501830359078916,
-    //             });
-
-    //             // setLocationStore({
-    //             //   lat: Number(arrLocation[0]),
-    //             //   lng: Number(arrLocation[1]),
-    //             // });
-    //         } catch (Error) {
-    //             setLocationStore({
-    //                 lat: 50.46993065494816,
-    //                 lng: 30.501830359078916,
-    //             });
-    //         }
-    //     };
-
-    //     load();
-
-    //     return () => {
-    //         controller.abort();
-    //     };
-    // }, [shop]);
 
     const directionsCallback = response => {
         if (response !== null) {

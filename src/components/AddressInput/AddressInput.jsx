@@ -1,17 +1,15 @@
+import React, { useContext, useEffect, useState } from 'react';
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
 } from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
-import { useContext, useEffect } from 'react';
 import { AddressContext } from '../../pages/ShoppingCart/ShoppingCart';
 
 export const AddressInput = () => {
-    const { address, setAddress, locationBuyer, setLocationBuyer } =
-        useContext(AddressContext);
-
+    const { locationBuyer, setLocationBuyer } = useContext(AddressContext);
+    const [inputValue, setInputValue] = useState(''); // Створення стану для зберігання значення введеного поля
     const {
-        // ready,
         value,
         suggestions: { status, data },
         setValue,
@@ -19,37 +17,40 @@ export const AddressInput = () => {
     } = usePlacesAutocomplete();
 
     useEffect(() => {
-        if (address) {
-            setValue(address);
+        if (locationBuyer && locationBuyer.lat && locationBuyer.lng) {
+            getGeocode({
+                location: { lat: locationBuyer.lat, lng: locationBuyer.lng },
+            })
+                .then(results => {
+                    const { formatted_address } = results[0];
+                    setInputValue(formatted_address);
+                })
+                .catch(error => {
+                    console.error('Error fetching address:', error);
+                });
         }
-    }, [address]);
+    }, [locationBuyer]);
 
     const ref = useOnclickOutside(() => {
-        // When the user clicks outside of the component, we can dismiss
-        // the searched suggestions by calling this method
         clearSuggestions();
     });
 
     const handleInput = e => {
-        // Update the keyword of the input element
+        setInputValue(e.target.value);
         setValue(e.target.value);
     };
 
-    const handleSelect =
-        ({ description }) =>
-        () => {
-            // When the user selects a place, we can replace the keyword without request data from API
-            // by setting the second parameter to "false"
-            setValue(description, false);
-            clearSuggestions();
+    const handlePlaceSelect = ({ description }) => {
+        setInputValue(description);
+        setValue(description, false);
+        clearSuggestions();
 
-            // Get latitude and longitude via utility functions
-            getGeocode({ address: description }).then(results => {
-                const { lat, lng } = getLatLng(results[0]);
-                console.log('📍 Coordinates: ', { lat, lng });
-                setLocationBuyer({ lat, lng });
-            });
-        };
+        getGeocode({ address: description }).then(results => {
+            const { lat, lng } = getLatLng(results[0]);
+            console.log('📍 Coordinates: ', { lat, lng });
+            setLocationBuyer({ lat, lng });
+        });
+    };
 
     const renderSuggestions = () =>
         data.map(suggestion => {
@@ -59,7 +60,10 @@ export const AddressInput = () => {
             } = suggestion;
 
             return (
-                <li key={place_id} onClick={handleSelect(suggestion)}>
+                <li
+                    key={place_id}
+                    onClick={() => handlePlaceSelect(suggestion)}
+                >
                     <strong>{main_text}</strong> <small>{secondary_text}</small>
                 </li>
             );
@@ -68,12 +72,10 @@ export const AddressInput = () => {
     return (
         <div ref={ref}>
             <input
-                value={value}
+                value={inputValue}
                 onChange={handleInput}
-                // disabled={!ready}
                 placeholder="Where are you going?"
             />
-            {/* We can use the "status" to decide whether we should display the dropdown or not */}
             {status === 'OK' && <ul>{renderSuggestions()}</ul>}
         </div>
     );

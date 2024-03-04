@@ -14,6 +14,7 @@ const Map = () => {
     const [response, setResponse] = useState(null);
     console.log('response:', response);
     const shop = useSelector(selectShop);
+    const [directionsKey, setDirectionsKey] = useState(0);
 
     const [locationBuyer, setLocationBuyer] = useState();
     console.log('locationBuyer:', locationBuyer);
@@ -26,6 +27,10 @@ const Map = () => {
             },
             userDecisionTimeout: 5000,
         });
+
+    useEffect(() => {
+        console.log('response in useEffect', response);
+    });
 
     useEffect(() => {
         console.log('useEffect:AAAAAAAAAAAA');
@@ -88,7 +93,8 @@ const Map = () => {
                 lng: e.latLng?.lng(),
             });
             setResponse(null);
-            console.log(response);
+            setDirectionsKey(prevKey => prevKey + 1);
+            console.log('Response cleared:', response);
         }
     };
 
@@ -124,8 +130,18 @@ const Map = () => {
                 )}
                 {response && (
                     <DirectionsRenderer
+                        key={directionsKey}
                         options={{
                             directions: response,
+                        }}
+                        routeIndex={0}
+                    />
+                )}
+                {!response && (
+                    <DirectionsRenderer
+                        key={directionsKey}
+                        options={{
+                            directions: { routes: [] },
                         }}
                         routeIndex={0}
                     />

@@ -68,6 +68,6 @@ export const CouponsWrapper = styled.div`
 `;
 
 export const TestWrapper = styled.div`
+    width: max-content;
     grid-area: 7 / 7 / 8 / 9;
-    background-color: tomato;
 `;

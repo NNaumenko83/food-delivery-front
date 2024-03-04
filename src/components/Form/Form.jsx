@@ -18,8 +18,7 @@ export const Form = () => {
     const selectedProducts = useSelector(selectProducts);
     const shop = useSelector(selectShop);
     const [isLoading, setIsLoading] = useState(false);
-    const { addressBuyer } = useContext(AddressContext);
-    console.log('addressBuyer:', addressBuyer);
+    const { isPeople } = useContext(AddressContext);
 
     const initialState = { name: '', email: '', phone: '', address: '' };
 
@@ -150,6 +149,7 @@ export const Form = () => {
 
             <SubmitButton
                 type="submit"
+                disabled={!isPeople}
                 /*  disabled={selectedProducts.length === 0} */
             >
                 {isLoading ? (

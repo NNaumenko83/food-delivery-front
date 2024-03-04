@@ -73,6 +73,24 @@ const Map = () => {
         }
     }, [isGeolocationAvailable, isGeolocationEnabled, coords]);
 
+    useEffect(() => {
+        if (locationBuyer && locationStore) {
+            setResponse(null);
+            setDirectionsKey(prevKey => prevKey + 1);
+            console.log('Response cleared:', response);
+        }
+    }, [locationBuyer, locationStore]);
+
+    useEffect(() => {
+        if (!locationBuyer && coords) {
+            setLocationBuyer({
+                lat: coords.latitude,
+                lng: coords.longitude,
+            });
+            setResponse(null);
+        }
+    }, [locationBuyer]);
+
     const directionsCallback = response => {
         if (response !== null) {
             if (response.status === 'OK') {

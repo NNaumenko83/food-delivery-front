@@ -26,6 +26,7 @@ const Map = () => {
     const shop = useSelector(selectShop);
     const [directionsKey, setDirectionsKey] = useState(0);
     const [locationStore, setLocationStore] = useState();
+    console.log('locationStore:', locationStore);
     const { locationBuyer, setLocationBuyer } = useContext(AddressContext);
 
     const { data: { address: addressShop } = {} } = useQuery({
@@ -39,7 +40,7 @@ const Map = () => {
     });
 
     useEffect(() => {
-        if (addressShop)
+        if (addressShop) {
             fromAddress(addressShop).then(
                 response => {
                     const { lat, lng } = response.results[0].geometry.location;
@@ -49,6 +50,7 @@ const Map = () => {
                     console.error(error);
                 }
             );
+        }
     }, [addressShop]);
 
     const { coords, isGeolocationAvailable, isGeolocationEnabled } =
@@ -58,10 +60,6 @@ const Map = () => {
             },
             userDecisionTimeout: 5000,
         });
-
-    useEffect(() => {
-        console.log('response in useEffect', response);
-    });
 
     useEffect(() => {
         if (isGeolocationAvailable && isGeolocationEnabled && coords) {
@@ -144,7 +142,7 @@ const Map = () => {
                         callback={directionsCallback}
                     />
                 )}
-                {response && (
+                {response && locationStore && locationBuyer && (
                     <DirectionsRenderer
                         key={directionsKey}
                         options={{

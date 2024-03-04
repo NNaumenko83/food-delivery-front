@@ -6,19 +6,50 @@ import {
     DirectionsRenderer,
 } from '@react-google-maps/api';
 
+import { setDefaults, fromAddress } from 'react-geocode';
+
 import { useGeolocated } from 'react-geolocated';
 import { useSelector } from 'react-redux';
 import { selectShop } from '../../redux/shopSlice';
+import { useQuery } from '@tanstack/react-query';
+import { getShopAddress } from '../../services/ShopAPI';
+import { GOOGLE_MAPS_API_KEY } from '../../constant/googleKeys';
+
+setDefaults({
+    key: GOOGLE_MAPS_API_KEY,
+    language: 'en',
+});
 
 const Map = () => {
     const [response, setResponse] = useState(null);
-    console.log('response:', response);
     const shop = useSelector(selectShop);
     const [directionsKey, setDirectionsKey] = useState(0);
-
     const [locationBuyer, setLocationBuyer] = useState();
-    console.log('locationBuyer:', locationBuyer);
     const [locationStore, setLocationStore] = useState();
+    console.log('locationStore:', locationStore);
+
+    const { data: { address: addressShop } = {} } = useQuery({
+        queryKey: ['shop'],
+        queryFn: async () => {
+            const data = await getShopAddress(shop.shop);
+
+            return data;
+        },
+        staleTime: 6000,
+    });
+
+    useEffect(() => {
+        if (addressShop)
+            fromAddress(addressShop).then(
+                response => {
+                    const { lat, lng } = response.results[0].geometry.location;
+                    setLocationStore({ lat, lng });
+                },
+                error => {
+                    console.error(error);
+                }
+            );
+    }, [addressShop]);
 
     const { coords, isGeolocationAvailable, isGeolocationEnabled } =
         useGeolocated({
@@ -33,7 +64,6 @@ const Map = () => {
     });
 
     useEffect(() => {
-        console.log('useEffect:AAAAAAAAAAAA');
         if (isGeolocationAvailable && isGeolocationEnabled && coords) {
             setLocationBuyer({
                 lat: coords.latitude,
@@ -42,37 +72,37 @@ const Map = () => {
         }
     }, [isGeolocationAvailable, isGeolocationEnabled, coords]);
 
-    useEffect(() => {
-        const controller = new AbortController();
+    // useEffect(() => {
+    //     const controller = new AbortController();
 
-        const load = async () => {
-            try {
-                // const { location } = await getShopsById(order.shop, controller);
+    //     const load = async () => {
+    //         try {
+    //             // const { location } = await getShopsById(order.shop, controller);
 
-                // const arrLocation = location.split(",");
-                setLocationStore({
-                    lat: 50.46993065494816,
-                    lng: 30.501830359078916,
-                });
+    //             // const arrLocation = location.split(",");
+    //             setLocationStore({
+    //                 lat: 50.46993065494816,
+    //                 lng: 30.501830359078916,
+    //             });
 
-                // setLocationStore({
-                //   lat: Number(arrLocation[0]),
-                //   lng: Number(arrLocation[1]),
-                // });
-            } catch (Error) {
-                setLocationStore({
-                    lat: 50.46993065494816,
-                    lng: 30.501830359078916,
-                });
-            }
-        };
+    //             // setLocationStore({
+    //             //   lat: Number(arrLocation[0]),
+    //             //   lng: Number(arrLocation[1]),
+    //             // });
+    //         } catch (Error) {
+    //             setLocationStore({
+    //                 lat: 50.46993065494816,
+    //                 lng: 30.501830359078916,
+    //             });
+    //         }
+    //     };
 
-        load();
+    //     load();
 
-        return () => {
-            controller.abort();
-        };
-    }, [shop]);
+    //     return () => {
+    //         controller.abort();
+    //     };
+    // }, [shop]);
 
     const directionsCallback = response => {
         if (response !== null) {

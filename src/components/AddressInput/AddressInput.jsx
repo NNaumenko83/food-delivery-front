@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
@@ -7,7 +7,8 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 import { AddressContext } from '../../pages/ShoppingCart/ShoppingCart';
 
 export const AddressInput = () => {
-    const { locationBuyer, setLocationBuyer } = useContext(AddressContext);
+    const { setAddressBuyer, locationBuyer, setLocationBuyer } =
+        useContext(AddressContext);
     const [inputValue, setInputValue] = useState(''); // Створення стану для зберігання значення введеного поля
     const {
         value,
@@ -24,6 +25,7 @@ export const AddressInput = () => {
                 .then(results => {
                     const { formatted_address } = results[0];
                     setInputValue(formatted_address);
+                    setAddressBuyer(formatted_address);
                 })
                 .catch(error => {
                     console.error('Error fetching address:', error);
@@ -33,6 +35,9 @@ export const AddressInput = () => {
 
     const ref = useOnclickOutside(() => {
         clearSuggestions();
+        if (inputValue === '') {
+            setLocationBuyer(null);
+        }
     });
 
     const handleInput = e => {

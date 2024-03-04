@@ -27,7 +27,6 @@ const Map = () => {
     const [directionsKey, setDirectionsKey] = useState(0);
     const [locationStore, setLocationStore] = useState();
     const { locationBuyer, setLocationBuyer } = useContext(AddressContext);
-    console.log('locationBuyer:', locationBuyer);
 
     const { data: { address: addressShop } = {} } = useQuery({
         queryKey: ['shop'],

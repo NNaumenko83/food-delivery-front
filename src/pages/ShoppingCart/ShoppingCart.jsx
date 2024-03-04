@@ -59,13 +59,18 @@ export const AddressContext = createContext();
 
 const ShoppingCart = () => {
     const total = useSelector(selectTotalValue);
-    const [address, setAddress] = useState('');
+    const [addressBuyer, setAddressBuyer] = useState('');
     const [locationBuyer, setLocationBuyer] = useState({});
     console.log('locationBuyer:', locationBuyer);
 
     return (
         <AddressContext.Provider
-            value={{ address, setAddress, locationBuyer, setLocationBuyer }}
+            value={{
+                addressBuyer,
+                setAddressBuyer,
+                locationBuyer,
+                setLocationBuyer,
+            }}
         >
             <Container>
                 <CartContainer>

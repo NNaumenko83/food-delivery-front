@@ -18,8 +18,8 @@ export const Form = () => {
     const selectedProducts = useSelector(selectProducts);
     const shop = useSelector(selectShop);
     const [isLoading, setIsLoading] = useState(false);
-    const { locationBuyer, setLocationBuyer } = useContext(AddressContext);
-    console.log('locationBuyer:', locationBuyer);
+    const { addressBuyer } = useContext(AddressContext);
+    console.log('addressBuyer:', addressBuyer);
 
     const initialState = { name: '', email: '', phone: '', address: '' };
 
